@@ -1,9 +1,4 @@
-//> using scala 3.7.2-RC1
-//> using platform scala-native
-//> using nativeVersion 0.5.8
-//> using resourceDir resources
-//> using nativeCompile -fcxx-exceptions
-//> using dep com.lihaoyi::upickle::4.2.1
+package howdy
 
 import httplib.all.*
 import scala.scalanative.unsafe.*
@@ -29,6 +24,13 @@ def rectangle_fits_scala(
 ): Boolean =
   curtWidth >= width && curtHeight >= height
 
+@extern def rectangle_fits_asm(
+    curtWidth: Int,
+    curtHeight: Int,
+    width: Int,
+    height: Int
+): Int = extern
+
 @main def hello =
   import Globals.*
 
@@ -47,7 +49,7 @@ def rectangle_fits_scala(
 
     val code = util.boundary:
       stock.zipWithIndex.foreach: (curtain, idx) =>
-        if rectangle_fits_scala(curtain.width, curtain.height, width, height)
+        if rectangle_fits_asm(curtain.width, curtain.height, width, height) != 0
         then
           orders += Order(width, height)
           stock(idx) = Curtain(curtain.width - width, curtain.height - height)

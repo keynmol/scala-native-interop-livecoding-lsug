@@ -5,3 +5,8 @@
 .bsp
 .scala-build
 .sbt
+project/project
+project/target
+project/metals.sbt
+target
+*.o

@@ -23,4 +23,6 @@ typedef struct {
 
 void start_server(Handlers* handlers, const char* socket, int port);
 
+extern int rectangle_fits_asm(int width, int height, int x, int y);
+
 }
