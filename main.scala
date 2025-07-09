@@ -21,8 +21,13 @@ object Globals:
   val z = Zone.open()
   val state = State(ArrayBuffer.empty[Order], ArrayBuffer.empty[Curtain])
 
-def rectangle_fits_scala(curt: Curtain, width: Int, height: Int): Boolean =
-  curt.width >= width && curt.height >= height
+def rectangle_fits_scala(
+    curtWidth: Int,
+    curtHeight: Int,
+    width: Int,
+    height: Int
+): Boolean =
+  curtWidth >= width && curtHeight >= height
 
 @main def hello =
   import Globals.*
@@ -42,7 +47,8 @@ def rectangle_fits_scala(curt: Curtain, width: Int, height: Int): Boolean =
 
     val code = util.boundary:
       stock.zipWithIndex.foreach: (curtain, idx) =>
-        if rectangle_fits_scala(curtain, width, height) then
+        if rectangle_fits_scala(curtain.width, curtain.height, width, height)
+        then
           orders += Order(width, height)
           stock(idx) = Curtain(curtain.width - width, curtain.height - height)
           util.boundary.break(Code.OK)
