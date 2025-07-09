@@ -1,0 +1,7 @@
+*.class
+*.tasty
+.metals
+.bloop
+.bsp
+.scala-build
+.sbt
