@@ -17,17 +17,19 @@ object predef:
 object enumerations:
   import predef.*
   /**
-   * [bindgen] header: resources/scala-native/httplib-glue.h
+   * [bindgen] header: src/main/resources/scala-native/httplib-glue.h
   */
   opaque type BodyType = CUnsignedInt
   object BodyType extends _BindgenEnumCUnsignedInt[BodyType]:
     given _tag: Tag[BodyType] = Tag.UInt
     inline def define(inline a: Long): BodyType = a.toUInt
     val JSON = define(0)
-    val NONE = define(1)
+    val TEXT = define(1)
+    val NONE = define(2)
     inline def getName(inline value: BodyType): Option[String] =
       inline value match
         case JSON => Some("JSON")
+        case TEXT => Some("TEXT")
         case NONE => Some("NONE")
         case _ => _root_.scala.None
     extension (a: BodyType)
@@ -36,7 +38,7 @@ object enumerations:
       inline def is(b: BodyType): Boolean = (a & b) == b
 
   /**
-   * [bindgen] header: resources/scala-native/httplib-glue.h
+   * [bindgen] header: src/main/resources/scala-native/httplib-glue.h
   */
   opaque type Code = CUnsignedInt
   object Code extends _BindgenEnumCUnsignedInt[Code]:
@@ -61,7 +63,7 @@ object structs:
   import _root_.httplib.predef.*
   import _root_.httplib.structs.*
   /**
-   * [bindgen] header: resources/scala-native/httplib-glue.h
+   * [bindgen] header: src/main/resources/scala-native/httplib-glue.h
   */
   opaque type Handlers = CStruct2[CFuncPtr0[Ptr[Resp]], CFuncPtr2[CInt, CInt, Ptr[Resp]]]
   object Handlers:
@@ -79,7 +81,7 @@ object structs:
       def create_=(value: CFuncPtr2[CInt, CInt, Ptr[Resp]]): Unit = !struct.at2 = value
 
   /**
-   * [bindgen] header: resources/scala-native/httplib-glue.h
+   * [bindgen] header: src/main/resources/scala-native/httplib-glue.h
   */
   opaque type Resp = CStruct3[Code, BodyType, Ptr[Byte]]
   object Resp:
@@ -106,7 +108,7 @@ private[httplib] object extern_functions:
   import _root_.httplib.predef.*
   import _root_.httplib.structs.*
   /**
-   * [bindgen] header: resources/scala-native/httplib-glue.h
+   * [bindgen] header: src/main/resources/scala-native/httplib-glue.h
   */
   def start_server(handlers : Ptr[Handlers], socket : CString, port : CInt): Unit = extern
 

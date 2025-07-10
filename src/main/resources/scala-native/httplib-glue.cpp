@@ -8,6 +8,9 @@ void prepare(httplib::Response &res, Resp* resp) {
         case JSON:
            res.set_content(reinterpret_cast<char*>(resp->body), "application/json");
            break;
+        case TEXT:
+           res.set_content(reinterpret_cast<char*>(resp->body), "text/plain");
+           break;
         default:
            break;
     }
@@ -27,7 +30,7 @@ void start_server(Handlers* handlers, const char* socket, int port) {
       std::string width = req.get_param_value("width");
       std::string height = req.get_param_value("height");
 
-      std::cout << "Creating image with width " << width << " and height " << height << std::endl;
+      std::cout << "Creating order with width " << width << " and height " << height << std::endl;
 
       auto resp = handlers->create(std::stoi(width), std::stoi(height));
 
