@@ -8,8 +8,7 @@ import scala.collection.mutable.ArrayBuffer
 
 case class Curtain(width: Int, height: Int) derives Writer
 
-case class State(stock: ArrayBuffer[Curtain])
-    derives Writer
+case class State(stock: ArrayBuffer[Curtain]) derives Writer
 
 object Globals:
   val z = Zone.open()
@@ -20,15 +19,15 @@ def rectangle_fits_scala(
     curtHeight: Int,
     width: Int,
     height: Int
-): Int =
-  if curtWidth >= width && curtHeight >= height then 1 else 0
+): Boolean =
+  curtWidth >= width && curtHeight >= height
 
 @extern def rectangle_fits_asm(
     curtWidth: Int,
     curtHeight: Int,
     width: Int,
     height: Int
-): Int = extern
+): Boolean = extern
 
 @main def hello =
   import Globals.*
@@ -37,21 +36,21 @@ def rectangle_fits_scala(
 
   stock += Curtain(100, 240)
 
-  (!handlers).list = CFuncPtr0.fromScalaFunction: () =>
+  (!handlers).list = () =>
     given Zone = Globals.z
     Resp(Code.OK, BodyType.JSON, toCString(write(stock)))
 
-  (!handlers).create = CFuncPtr2.fromScalaFunction: (width: Int, height: Int) =>
+  (!handlers).create = (width: Int, height: Int) =>
     given Zone = Globals.z
 
     util.boundary:
       stock.zipWithIndex.foreach: (curtain, idx) =>
-        if rectangle_fits_scala(
+        if rectangle_fits_asm(
             curtain.width,
             curtain.height,
             width,
             height
-          ) != 0
+          )
         then
           stock(idx) = Curtain(curtain.width - width, curtain.height - height)
           util.boundary.break(Resp(Code.OK, BodyType.NONE, null))
