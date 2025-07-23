@@ -44,7 +44,7 @@ def rectangle_fits_scala(
 
     boundary:
       stock.zipWithIndex.foreach: (curtain, idx) =>
-        if rectangle_fits_scala(
+        if rectangle_fits_asm(
             curtain.width,
             curtain.height,
             width,
