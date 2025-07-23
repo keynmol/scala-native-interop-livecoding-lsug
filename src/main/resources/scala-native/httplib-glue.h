@@ -18,7 +18,7 @@ typedef struct {
 
 typedef struct {
     Resp* (*list)(void);
-    Resp* (*create)(int, int);
+    Resp* (*create)(int width, int height);
 } Handlers;
 
 void start_server(Handlers* handlers, const char* socket, int port);
