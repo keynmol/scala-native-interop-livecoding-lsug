@@ -28,7 +28,7 @@ def rectangle_fits_scala(
     height: Int
 ): Boolean = extern
 
-@main def hello =
+@main def hello(args: String*) =
   given Zone = z
   val handlers = Handlers()
 
@@ -44,7 +44,7 @@ def rectangle_fits_scala(
 
     boundary:
       stock.zipWithIndex.foreach: (curtain, idx) =>
-        if rectangle_fits_asm(
+        if rectangle_fits_scala(
             curtain.width,
             curtain.height,
             width,
@@ -53,6 +53,7 @@ def rectangle_fits_scala(
         then
           stock(idx) = Curtain(curtain.width - width, curtain.height - height)
           boundary.break(Resp(Code.OK, BodyType.NONE, null))
+
       Resp(Code.BAD_REQUEST, BodyType.TEXT, c"Order doesn't fit")
 
   start_server(handlers, c"localhost", 8899)

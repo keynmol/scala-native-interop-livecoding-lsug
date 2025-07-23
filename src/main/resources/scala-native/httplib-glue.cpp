@@ -38,7 +38,7 @@ void start_server(Handlers *handlers, const char *socket, int port) {
         prepare(res, resp);
       });
 
-  std::cout << "Starting server on " << socket << ":" << port << std::endl;
+  std::cout << "Starting server on http://" << socket << ":" << port << std::endl;
 
   server.listen(socket, port);
 }
