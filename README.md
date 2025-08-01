@@ -26,6 +26,9 @@ renovation experience).
 
 5. As a fun exercise, we implement a [tiny part of the logic in Assembly](./src/main/resources/scala-native/rectangle_fits.S) (the variant here is ARM64 assembly, for MacOS clang).
    **if you struggle to build this application it might be down to this assembly part - assembly is not portable!**
+   If that's the case, just modify the main file to use the Scala variant of the function (or be brave and modify the assembly for your platform, that should be fun)
+
+6. The app itself along with its logic is wired in our [main file](./src/main/scala/main.scala)
 
 ## Building and running 
 
