@@ -2,6 +2,8 @@
 
 Live coded for the London Scala User Group on July 23rd, 2025.
 
+**[Watch the video, it's fun!](https://www.youtube.com/watch?v=rRPeZ6wT2mc)**
+
 ## The app
 
 This project implements a simple HTTP service with 2 endpoints,
